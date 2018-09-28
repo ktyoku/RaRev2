@@ -1,0 +1,144 @@
+@import '~shards-ui/src/scss/shards';
+@import '~bootstrap/scss/bootstrap';
+
+// Variables
+$white: #fff;
+$dark-grey: #333;
+$blue: #337cf6;
+
+// General
+html, body {
+  height: 100%;
+}
+
+// Page loader
+.loader {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: $white;
+  z-index: 1500;
+  transition: opacity 500ms ease-in-out;
+}
+
+.page-loader {
+  width: 40px;
+  height: 40px;
+  margin: auto;
+  top: 50%;
+  left: 50%;
+  position: absolute;
+  margin-top: -20px;
+  margin-left: -20px;
+  background-color: $dark-grey;
+  background: theme-color("primary");
+  border-radius: 100%;
+  transition-timing-function: cubic-bezier(0.86, 0, 0.07, 1);
+  -webkit-animation: pulse-load 1200ms infinite ease-in-out;
+  animation: pulse-load 1200ms infinite ease-in-out;
+}
+
+@-webkit-keyframes pulse-load {
+  0% {
+    -webkit-transform: scale(0)
+  }
+  100% {
+    -webkit-transform: scale(1.0);
+    opacity: 0;
+  }
+}
+
+@keyframes pulse-load {
+  0% {
+    -webkit-transform: scale(0);
+    transform: scale(0);
+  }
+  100% {
+    -webkit-transform: scale(1.0);
+    transform: scale(1.0);
+    opacity: 0;
+  }
+}
+
+// Non-blocking spinner
+.spinner,
+.spinner:after {
+  border-radius: 50%;
+  width: 2.7em;
+  height: 2.7em;
+}
+.spinner {
+  display: none;
+  font-size: 10px;
+  position: absolute;
+  right: 1rem;
+  top: 1.3rem;
+  text-indent: -9999em;
+  border-top: .3em solid rgba(255, 255, 255, 0.4);
+  border-right: .3em solid rgba(255, 255, 255, 0.4);
+  border-bottom: .3em solid rgba(255, 255, 255, 0.4);
+  border-left: .3em solid $blue;
+  -webkit-transform: translateZ(0);
+  -ms-transform: translateZ(0);
+  transform: translateZ(0);
+  -webkit-animation: load8 .8s infinite linear;
+  animation: load8 .8s infinite linear;
+}
+@-webkit-keyframes load8 {
+  0% {
+    -webkit-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+}
+@keyframes load8 {
+  0% {
+    -webkit-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+  100% {
+    -webkit-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+}
+
+// Card
+.main-card {
+  height: 36rem;
+  overflow-y: hidden;
+
+  .account {
+    right: 1rem;
+  }
+
+  .table-fixed {
+    width: unset;
+
+    thead, tbody {
+      display: block;
+    }
+
+    tbody {
+      height: 18.3rem;
+      overflow-y: auto;
+    }
+
+    th, td {
+      vertical-align: middle;
+      padding: .9rem 1.2rem;
+
+      .custom-toggle {
+        margin-left: 1.2rem;
+      }
+    }
+  }
+
+  .custom-select {
+    background: $white;
+  }
+}
