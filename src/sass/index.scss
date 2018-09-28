@@ -11,6 +11,75 @@ html, body {
   height: 100%;
 }
 
+body {
+  font-size: 14px;
+  background-color: #2E2E2E;
+  color: $white;
+}
+
+button {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+}
+
+.container {
+  padding: 0 184px;
+}
+
+.l-header {
+  height: 64px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.l-top {
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.telegram {
+  position: absolute;
+  right: 0;
+}
+
+.p-exchange {
+}
+
+.p-ex-title {
+  font-size: 20px;
+  font-weight: bold;
+  border-bottom: solid 1px #707070;
+  padding-bottom: 18px;
+  margin-top: 48px;
+}
+
+.u-bg {
+  background-color: #1D1D1D;
+}
+
+.contents {
+  // text-align: center;
+  margin-top: 24px;
+  padding: 12px 230px;
+}
+
+.content-title {
+  font-size: 20px;
+  padding-bottom: 10px;
+  border-bottom: solid 1px #707070;
+  text-align: left;
+}
+
+.table td, .table th {
+  border-style: none;
+}
+
+.u-btn {
+  background-color: #1D1D1D;
+  color: $white;
+}
+
 // Page loader
 .loader {
   position: absolute;
