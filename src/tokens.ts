@@ -8,39 +8,15 @@ const tableFixedSelector = '.table-fixed';
 const wrapModalSelector = '#wrapModal';
 const wrapEthAmountSelector = '#wrap-amount';
 const wrapEthButtonSelector = '#wrap-eth-button';
-const unwrapModalSelector = '#unwrapModal';
-const unwrapEthAmountSelector = '#unwrap-amount';
-const unwrapEthButtonSelector = '#unwrap-eth-button';
 const spinnerSelector = '.spinner';
 
 // Wrap button clicked
 $(wrapEthButtonSelector).click(wrapEthAsync);
-$(unwrapEthButtonSelector).click(unwrapEthAsync);
 
 /**
  * Wrap the amount
  * @param e The toggle clicked event
  */
-export async function unwrapEthAsync() {
-  try {
-    const unwrapAmount = $(unwrapEthAmountSelector).val() as string;
-    if (!unwrapAmount || unwrapAmount === '0') {
-      alert('Please enter a valid number');
-      return;
-    }
-
-    $(spinnerSelector).show();
-
-    await Sdk.Instance.account.unwrapEthAsync(new BigNumber(unwrapAmount), { awaitTransactionMined: true });
-    await updateTokensAndTableAsync();
-    $(unwrapModalSelector).modal('hide');
-    $(spinnerSelector).hide();
-  } catch (err) {
-    alert(err.message);
-    $(spinnerSelector).hide();
-  }
-}
-
 export async function wrapEthAsync() {
   try {
     const wrapAmount = $(wrapEthAmountSelector).val() as string;
@@ -163,7 +139,6 @@ function createTokensTable(tokenData: {}) {
 
     if (key === 'ETH') {
       $(tr.insertCell()).html('<span data-toggle="modal" data-target="#wrapModal"><button type="button" class="btn btn-success" data-toggle="tooltip" data-placement="left" title="Wrap ETH">Wrap</button></span>');
-      $(tr.insertCell()).html('<span data-toggle="modal" data-target="#unwrapModal"><button type="button" class="btn btn-info" data-toggle="tooltip" data-placement="left" title="unWrap ETH">unWrap</button></span>');
     } else {
       $(tr.insertCell()).html(`
         <div class="custom-control custom-toggle my-2" data-toggle="tooltip" data-placement="left"
