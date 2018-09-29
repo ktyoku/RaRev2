@@ -80,6 +80,20 @@ button {
   color: $white;
 }
 
+.u-input {
+  width: 120px;
+}
+
+.u-select {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  height: auto;
+  width: auto;
+  font-weight: normal;
+  font-size: inherit;
+}
+
 // Page loader
 .loader {
   position: absolute;

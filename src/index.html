@@ -8,9 +8,6 @@
   <meta name="description" content="HubEconomies">
 </head>
 <body>
-  <div class="alert alert-danger position-absolute w-100 text-center d-none" id="network-warning" role="alert">
-    Please switch to the Kovan network.
-  </div>
   <header>
     <div class="container">
       <div class="l-header text-center">
@@ -23,6 +20,10 @@
       </div>
     </div>
   </header>
+
+  <div class="alert alert-danger position-absolute w-100 text-center d-none" id="network-warning" role="alert">
+    Please switch to the Kovan network.
+  </div>
 
   <div class="p-exchange">
     <div class="container">
@@ -123,13 +124,27 @@
             <tbody>
               <tr>
                 <td>BUY</td>
-                <td><input type="text" placeholder="Amount" value="1"></td>
-                <td><button type="button" class="u-btn" data-toggle="tooltip" data-placement="right" title="from ETH to WETH">ETH→WETH</button></td>
+                <td><input type="text" placeholder="Amount" value="1" class="u-input"></td>
+                <td>
+                  <select class="custom-select u-select">
+                    <option value="ZRX">ZRX - 0x Protocol Token</option>
+                    <option value="WETH">WETH - Wrapped ETH</option>
+                    <option value="KNC">KNC - Kyber Network Crystal</option>
+                    <option value="MANA">MANA - Decentraland MANA</option>
+                  </select>
+                </td>
               </tr>
               <tr>
                 <td>SELL</td>
                 <td>0000.0000000</td>
-                <td><button type="button" class="u-btn" data-toggle="tooltip" data-placement="right" title="from WETH to ETH">WETH→ETH</button></td>
+                <td>
+                  <select class="custom-select u-select">
+                    <option value="ZRX">ZRX - 0x Protocol Token</option>
+                    <option value="WETH">WETH - Wrapped ETH</option>
+                    <option value="KNC">KNC - Kyber Network Crystal</option>
+                    <option value="MANA">MANA - Decentraland MANA</option>
+                  </select>
+                </td>
               </tr>
             </tbody>
           </table>
