@@ -10,6 +10,9 @@ const wrapEthAmountSelector = '#wrap-amount';
 const wrapEthButtonSelector = '#wrap-eth-button';
 const spinnerSelector = '.spinner';
 
+const ETHBalance = '.ETH-Balance';
+const WETHBalance = '.WETH-Balance';
+
 // Wrap button clicked
 $(wrapEthButtonSelector).click(wrapEthAsync);
 
@@ -99,6 +102,7 @@ export async function getAllTokenBalancesAndAllowancesAsync() {
   });
 }
 
+
 /**
  * Fetch token balances and allowances and
  * update the html table
@@ -121,9 +125,13 @@ function createTokensTable(tokenData: {}) {
   const tBody = table.createTBody();
   const columnNames = ['Token', 'Balance', 'Action'];
 
-  table.classList.add('table', 'table-fixed', 'table-striped', 'table-bordered', 'table-responsive-md');
+  table.classList.add('table');
   columnNames.forEach(name => {
-    $(document.createElement('th')).addClass('text-center').html(name).appendTo(tr);
+    if (name === 'Token') {
+    $(document.createElement('th')).html(name).appendTo(tr);
+    } else {
+    $(document.createElement('th')).attr('class', 'col').html(name).appendTo(tr);
+    }
   });
 
   // Enable tooltips on page
@@ -133,15 +141,17 @@ function createTokensTable(tokenData: {}) {
 
   // Populate table
   Object.keys(tokenData).forEach(key => {
-    const tr = tBody.insertRow();
-    $(tr.insertCell()).attr('align', 'middle').html(key); // Token Name
-    $(tr.insertCell()).attr('align', 'middle').html(tokenData[key].balance.toFixed(7).replace(/\.0+$|(\.\d*[1-9])(0+)$/, '')); // Token Balance
-
     if (key === 'ETH') {
-      $(tr.insertCell()).html('<span data-toggle="modal" data-target="#wrapModal"><button type="button" class="btn btn-success" data-toggle="tooltip" data-placement="left" title="Wrap ETH">Wrap</button></span>');
-    } else {
+      $(ETHBalance).html(tokenData[key].balance.toFixed(7).replace(/\.0+$|(\.\d*[1-9])(0+)$/, ''));
+    } else if (key === 'WETH') {
+      $(WETHBalance).html(tokenData[key].balance.toFixed(7).replace(/\.0+$|(\.\d*[1-9])(0+)$/, ''));
+    };
+    if (key !== 'ETH') {
+      const tr = tBody.insertRow();
+      $(tr.insertCell()).attr('align', 'middle').html(key); // Token Name
+      $(tr.insertCell()).attr('align', 'middle').html(tokenData[key].balance.toFixed(7).replace(/\.0+$|(\.\d*[1-9])(0+)$/, '')); // Token Balance
       $(tr.insertCell()).html(`
-        <div class="custom-control custom-toggle my-2" data-toggle="tooltip" data-placement="left"
+        <div class="custom-control custom-toggle" data-toggle="tooltip" data-placement="left"
           title="${tokenData[key].allowance ? 'Disable' : 'Enable'} Token">
           <input type="checkbox" id="${key.toLowerCase()}-toggle" class="custom-control-input allowance-toggle"
             name="${tokenData[key].address}" ${tokenData[key].allowance ? 'checked' : ''}>
@@ -158,13 +168,13 @@ function createTokensTable(tokenData: {}) {
   $(allowanceToggleSelector).click(toggleAllowanceAsync);
 
   // Adjust width
-  for (let i = 0; i < tr.cells.length; i++) {
-    const thWidth = $(tableFixedSelector).find('th:eq(' + i + ')').width();
-    const tdWidth = $(tableFixedSelector).find('td:eq(' + i + ')').width();
-    if (thWidth < tdWidth) {
-      $(tableFixedSelector).find('th:eq(' + i + ')').width(tdWidth);
-    } else {
-      $(tableFixedSelector).find('td:eq(' + i + ')').width(thWidth);
-    }
-  }
+  // for (let i = 0; i < tr.cells.length; i++) {
+  //   const thWidth = $(tableFixedSelector).find('th:eq(' + i + ')').width();
+  //   const tdWidth = $(tableFixedSelector).find('td:eq(' + i + ')').width();
+  //   if (thWidth < tdWidth) {
+  //     $(tableFixedSelector).find('th:eq(' + i + ')').width(tdWidth);
+  //   } else {
+  //     $(tableFixedSelector).find('td:eq(' + i + ')').width(thWidth);
+  //   }
+  // }
 }
