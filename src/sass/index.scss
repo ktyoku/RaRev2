@@ -43,15 +43,13 @@ button {
   right: 0;
 }
 
-.p-exchange {
-}
-
 .p-ex-title {
   font-size: 20px;
   font-weight: bold;
   border-bottom: solid 1px #707070;
   padding-bottom: 18px;
   margin-top: 48px;
+  position: relative;
 }
 
 .u-bg {
@@ -96,7 +94,7 @@ button {
 
 // Page loader
 .loader {
-  position: absolute;
+  position: fixed;
   top: 0;
   left: 0;
   right: 0;
@@ -157,7 +155,7 @@ button {
   font-size: 10px;
   position: absolute;
   right: 1rem;
-  top: 1.3rem;
+  top: 1px;
   text-indent: -9999em;
   border-top: .3em solid rgba(255, 255, 255, 0.4);
   border-right: .3em solid rgba(255, 255, 255, 0.4);
