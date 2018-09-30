@@ -168,14 +168,14 @@ function createTokensTable(tokenData: {}) {
   // Populate table
   Object.keys(tokenData).forEach(key => {
     if (key === 'ETH') {
-      $(ETHBalance).html(tokenData[key].balance.toFixed(7).replace(/\.0+$|(\.\d*[1-9])(0+)$/, ''));
+      $(ETHBalance).html(tokenData[key].balance.toFixed(7));
     } else if (key === 'WETH') {
-      $(WETHBalance).html(tokenData[key].balance.toFixed(7).replace(/\.0+$|(\.\d*[1-9])(0+)$/, ''));
+      $(WETHBalance).html(tokenData[key].balance.toFixed(7));
     };
     if (key !== 'ETH') {
       const tr = tBody.insertRow();
       $(tr.insertCell()).attr('align', 'middle').html(key); // Token Name
-      $(tr.insertCell()).attr('align', 'middle').html(tokenData[key].balance.toFixed(7).replace(/\.0+$|(\.\d*[1-9])(0+)$/, '')); // Token Balance
+      $(tr.insertCell()).attr('align', 'middle').html(tokenData[key].balance.toFixed(7)); // Token Balance
       $(tr.insertCell()).html(`
         <div class="custom-control custom-toggle" data-toggle="tooltip" data-placement="left"
           title="${tokenData[key].allowance ? 'Disable' : 'Enable'} Token">
