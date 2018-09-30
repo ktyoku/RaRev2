@@ -64,7 +64,7 @@ export function populateTokenDropdowns() {
  * Update the book when the market changes
  */
 export async function updateBookAsync() {
-  // console.log(Sdk.Instance.markets);
+  console.log(Sdk.Instance.markets);
   const market = await Sdk.Instance.markets.getAsync(`${$(baseTokenSelectSelector).val()}-${$(quoteTokenSelectSelector).val()}`);
   // console.log(market);
   currentOrderBook = await market.getBookAsync();
@@ -75,7 +75,6 @@ export async function updateBookAsync() {
  * Base amount has changed. Update the quote token amount
  */
 export function baseAmountChanged() {
-  console.log(1);
   let baseTokenAmount = new BigNumber($(baseTokenAmountSelector).val() as string);
   const orderType = UserOrderType[$(title1).text() as string];
 
@@ -124,11 +123,13 @@ export async function exchangeAsync() {
       }
 
       $(spinnerSelector).show();
-
+        console.log(1);
       const orderType = $(title1).text() as string;
+        console.log(2);
       const market = await Sdk.Instance.markets.getAsync(`${$(baseTokenSelectSelector).val()}-${$(quoteTokenSelectSelector).val()}`);
+        console.log(3);
       const txReceipt = await market.marketOrderAsync(UserOrderType[orderType], new BigNumber(baseTokenAmount), { awaitTransactionMined: true });
-
+  console.log(4);
       $(spinnerSelector).hide();
 
       alert(`Transaction Sucessful: ${(txReceipt as any).transactionHash}`);
