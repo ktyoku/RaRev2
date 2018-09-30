@@ -8,6 +8,9 @@ const tableFixedSelector = '.table-fixed';
 const wrapModalSelector = '#wrapModal';
 const wrapEthAmountSelector = '#wrap-amount';
 const wrapEthButtonSelector = '#wrap-eth-button';
+const unwrapModalSelector = '#unwrapModal';
+const unwrapEthAmountSelector = '#unwrap-amount';
+const unwrapEthButtonSelector = '#unwrap-eth-button';
 const spinnerSelector = '.spinner';
 
 const ETHBalance = '.ETH-Balance';
@@ -15,6 +18,7 @@ const WETHBalance = '.WETH-Balance';
 
 // Wrap button clicked
 $(wrapEthButtonSelector).click(wrapEthAsync);
+$(unwrapEthButtonSelector).click(unwrapEthAsync);
 
 /**
  * Wrap the amount
@@ -34,6 +38,28 @@ export async function wrapEthAsync() {
     await updateTokensAndTableAsync();
     $(wrapModalSelector).modal('hide');
     $(spinnerSelector).hide();
+    location.reload(); //とりあえずリロードする
+  } catch (err) {
+    alert(err.message);
+    $(spinnerSelector).hide();
+  }
+}
+
+export async function unwrapEthAsync() {
+  try {
+    const unwrapAmount = $(unwrapEthAmountSelector).val() as string;
+    if (!unwrapAmount || unwrapAmount === '0') {
+      alert('Please enter a valid number');
+      return;
+    }
+
+    $(spinnerSelector).show();
+
+    await Sdk.Instance.account.unwrapEthAsync(new BigNumber(unwrapAmount), { awaitTransactionMined: true });
+    await updateTokensAndTableAsync();
+    $(unwrapModalSelector).modal('hide');
+    $(spinnerSelector).hide();
+    location.reload(); //とりあえずリロードする
   } catch (err) {
     alert(err.message);
     $(spinnerSelector).hide();

@@ -13,6 +13,11 @@ const orderTypeSelector = '#order-type';
 const exchangeButtonSelector = '#exchange-button';
 const spinnerSelector = '.spinner';
 
+const buy = '#BUY';
+const sell = '#SELL';
+const title1 = '#title1';
+const title2 = '#title2';
+
 
 // Tokens changed - Update book and amounts
 $(`${baseTokenSelectSelector}, ${quoteTokenSelectSelector}`).change(async () => {
@@ -26,17 +31,30 @@ $(baseTokenAmountSelector).on('change keyup paste', baseAmountChanged);
 // Exchange button clicked
 $(exchangeButtonSelector).click(exchangeAsync);
 
+$(buy).click(function(){
+  $(title1).text('BUY');
+  $(title2).text('SELL');
+});
+
+$(sell).click(function(){
+  $(title1).text('SELL');
+  $(title2).text('BUY');
+});
+
+// console.log(typeof $(title1).text());
+// console.log(typeof $(orderTypeSelector).val())
+
 /**
  * Populate the base and quote token dropdowns
  */
 export function populateTokenDropdowns() {
-  Sdk.Instance.tokens.forEach(token => {
-    if (token.quote) {
-      $(quoteTokenSelectSelector).append($('<option />').val(token.symbol).text(`${token.symbol} - ${token.name}`));
-    } else {
-      $(baseTokenSelectSelector).append($('<option />').val(token.symbol).text(`${token.symbol} - ${token.name}`));
-    }
-  });
+  // Sdk.Instance.tokens.forEach(token => {
+  //   if (token.quote) {
+  //     $(quoteTokenSelectSelector).append($('<option />').val(token.symbol).text(`${token.symbol} - ${token.name}`));
+  //   } else {
+  //     $(baseTokenSelectSelector).append($('<option />').val(token.symbol).text(`${token.symbol} - ${token.name}`));
+  //   }
+  // });
 
   // Update book
   updateBookAsync();
@@ -46,16 +64,20 @@ export function populateTokenDropdowns() {
  * Update the book when the market changes
  */
 export async function updateBookAsync() {
+  // console.log(Sdk.Instance.markets);
   const market = await Sdk.Instance.markets.getAsync(`${$(baseTokenSelectSelector).val()}-${$(quoteTokenSelectSelector).val()}`);
+  // console.log(market);
   currentOrderBook = await market.getBookAsync();
+  console.log(currentOrderBook);
 }
 
 /**
  * Base amount has changed. Update the quote token amount
  */
 export function baseAmountChanged() {
+  console.log(1);
   let baseTokenAmount = new BigNumber($(baseTokenAmountSelector).val() as string);
-  const orderType = UserOrderType[$(orderTypeSelector).val() as string];
+  const orderType = UserOrderType[$(title1).text() as string];
 
   let quoteTokenAmount = new BigNumber(0);
   if (orderType === UserOrderType.BUY && currentOrderBook.asks.length) {
@@ -103,7 +125,7 @@ export async function exchangeAsync() {
 
       $(spinnerSelector).show();
 
-      const orderType = $(orderTypeSelector).val() as string;
+      const orderType = $(title1).text() as string;
       const market = await Sdk.Instance.markets.getAsync(`${$(baseTokenSelectSelector).val()}-${$(quoteTokenSelectSelector).val()}`);
       const txReceipt = await market.marketOrderAsync(UserOrderType[orderType], new BigNumber(baseTokenAmount), { awaitTransactionMined: true });
 
