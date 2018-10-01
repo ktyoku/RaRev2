@@ -1,6 +1,7 @@
 import { BigNumber } from 'bignumber.js';
 import { UserOrderType, RadarBook, RadarSignedOrder } from '@radarrelay/types';
 import { Sdk } from './Sdk';
+import { getAllTokenBalancesAndAllowancesAsync } from './tokens';
 
 let currentOrderBook: RadarBook;
 
@@ -41,9 +42,6 @@ $(sell).click(function(){
   $(title2).text('BUY');
 });
 
-// console.log(typeof $(title1).text());
-// console.log(typeof $(orderTypeSelector).val())
-
 /**
  * Populate the base and quote token dropdowns
  */
@@ -64,11 +62,8 @@ export function populateTokenDropdowns() {
  * Update the book when the market changes
  */
 export async function updateBookAsync() {
-  console.log(Sdk.Instance.markets);
   const market = await Sdk.Instance.markets.getAsync(`${$(baseTokenSelectSelector).val()}-${$(quoteTokenSelectSelector).val()}`);
-  // console.log(market);
   currentOrderBook = await market.getBookAsync();
-  console.log(currentOrderBook);
 }
 
 /**
@@ -77,6 +72,7 @@ export async function updateBookAsync() {
 export function baseAmountChanged() {
   let baseTokenAmount = new BigNumber($(baseTokenAmountSelector).val() as string);
   const orderType = UserOrderType[$(title1).text() as string];
+  // const orderType = UserOrderType[$(orderTypeSelector).val() as string];
 
   let quoteTokenAmount = new BigNumber(0);
   if (orderType === UserOrderType.BUY && currentOrderBook.asks.length) {
@@ -121,15 +117,18 @@ export async function exchangeAsync() {
         alert('Please enter a base token amount');
         return;
       }
+      const tokenData = await getAllTokenBalancesAndAllowancesAsync();
+      if (!('WETH' in tokenData) || tokenData['WETH'].balance < baseTokenAmount) {
+        alert('所持数を超えています');
+        return;
+      }
 
       $(spinnerSelector).show();
-        console.log(1);
+
       const orderType = $(title1).text() as string;
-        console.log(2);
       const market = await Sdk.Instance.markets.getAsync(`${$(baseTokenSelectSelector).val()}-${$(quoteTokenSelectSelector).val()}`);
-        console.log(3);
       const txReceipt = await market.marketOrderAsync(UserOrderType[orderType], new BigNumber(baseTokenAmount), { awaitTransactionMined: true });
-  console.log(4);
+
       $(spinnerSelector).hide();
 
       alert(`Transaction Sucessful: ${(txReceipt as any).transactionHash}`);

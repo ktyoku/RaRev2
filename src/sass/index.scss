@@ -26,6 +26,11 @@ footer {
   height: 215px;
 }
 
+input:read-only {
+  background-color: #BFBFBF;
+  border-color: #BFBFBF
+}
+
 .container {
   padding: 0 184px;
 }
@@ -96,6 +101,7 @@ footer {
 .u-btn {
   background-color: $dark;
   color: $white;
+  cursor: pointer;
 }
 
 .u-input {

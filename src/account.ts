@@ -5,7 +5,8 @@ import { EventName } from '@radarrelay/sdk';
 // Selectors
 const activeAddressSelector = '#active-address';
 const loaderSelector = '.loader';
-
+const baseTokenAmountSelector = '#base-token-amount';
+const quoteTokenAmountSelector = '#quote-token-amount';
 
 /**
  * Watch the active address. Update the balances
@@ -20,6 +21,10 @@ export function watchActiveAddress() {
 
     // Show Loader
     $(loaderSelector).show();
+
+    $(baseTokenAmountSelector).val('');
+    $(quoteTokenAmountSelector).val('');
+
 
     // Update balances and allowances
     await updateTokensAndTableAsync();

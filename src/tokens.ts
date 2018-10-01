@@ -12,9 +12,11 @@ const unwrapModalSelector = '#unwrapModal';
 const unwrapEthAmountSelector = '#unwrap-amount';
 const unwrapEthButtonSelector = '#unwrap-eth-button';
 const spinnerSelector = '.spinner';
+const baseTokenAmountSelector = '#base-token-amount';
 
 const ETHBalance = '.ETH-Balance';
 const WETHBalance = '.WETH-Balance';
+const weth = '#WETH';
 
 // Wrap button clicked
 $(wrapEthButtonSelector).click(wrapEthAsync);
@@ -159,6 +161,16 @@ function createTokensTable(tokenData: {}) {
     $(document.createElement('th')).attr('class', 'col').html(name).appendTo(tr);
     }
   });
+
+  ///have or not have WETH
+  if(!('WETH' in tokenData)){
+    $(WETHBalance).text('0.0000000');
+    $(weth).prop('disabled', true).css('cursor', 'default');
+    $(baseTokenAmountSelector).prop('readonly', true);
+  } else {
+    $(weth).prop('disabled', false).css('cursor', 'pointer');
+    $(baseTokenAmountSelector).prop('readonly', false);
+  };
 
   // Enable tooltips on page
   $(function () {

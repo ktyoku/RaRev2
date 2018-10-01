@@ -61,7 +61,7 @@
               <tr>
                 <td>WETH</td>
                 <td class="WETH-Balance">0.0000000</td>
-                <td><span data-toggle="modal" data-target="#unwrapModal"><button type="button" class="u-btn" data-toggle="tooltip" data-placement="right" title="from WETH to ETH">WETH→ETH</button></span></td>
+                <td><span data-toggle="modal" data-target="#unwrapModal"><button type="button" class="u-btn" id="WETH" data-toggle="tooltip" data-placement="right" title="from WETH to ETH" >WETH→ETH</button></span></td>
               </tr>
             </tbody>
           </table>
@@ -90,6 +90,10 @@
               <a class="nav-link" id="SELL" data-toggle="tab">SELL</a>
             </li>
           </ul>
+          <!-- <select class="custom-select w-100" id="order-type">
+                    <option value="BUY" selected="selected">BUY</option>
+                    <option value="SELL">SELL</option>
+                  </select> -->
           <table class="table">
             <thead>
               <tr>
@@ -101,7 +105,8 @@
             <tbody>
               <tr>
                 <td id="title1">BUY</td>
-                <td><input type="text" placeholder="Amount" id="base-token-amount" class="u-input"></td>
+                <td><input type="text"  placeholder="Amount" id="quote-token-amount" class="u-input" readonly></td>
+                <!-- <td><input type="text" placeholder="Amount" id="base-token-amount" class="u-input"></td> -->
                 <td>
                   <select class="custom-select u-select" id="base-token-select">
                     <option value="ZRX">ZRX - 0x Protocol Token</option>
@@ -113,7 +118,8 @@
               </tr>
               <tr>
                 <td id="title2">SELL</td>
-                <td><input type="text"  placeholder="Amount" id="quote-token-amount" class="u-input" readonly></td>
+                <td><input type="text" placeholder="Amount" id="base-token-amount" class="u-input"></td>
+                <!-- <td><input type="text"  placeholder="Amount" id="quote-token-amount" class="u-input" readonly></td> -->
                 <td>
                   <select class="custom-select u-select" id="quote-token-select">
                     <option value="WETH">WETH - Wrapped ETH</option>
