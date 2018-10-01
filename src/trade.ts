@@ -147,7 +147,7 @@ export async function exchangeAsync() {
       }
       const tokenData = await getAllTokenBalancesAndAllowancesAsync();
       if (!('WETH' in tokenData) || tokenData['WETH'].balance < baseTokenAmount) {
-        alert('所持数を超えています');
+        alert('Insufficient finds. Account you try to send transaction from does not have enough funds.');
         return;
       }
 
