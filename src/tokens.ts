@@ -12,7 +12,7 @@ const unwrapModalSelector = '#unwrapModal';
 const unwrapEthAmountSelector = '#unwrap-amount';
 const unwrapEthButtonSelector = '#unwrap-eth-button';
 const spinnerSelector = '.spinner';
-const baseTokenAmountSelector = '#base-token-amount';
+const baseTokenAmountSelector = '.base-token-amount';
 
 const ETHBalance = '.ETH-Balance';
 const WETHBalance = '.WETH-Balance';
@@ -40,7 +40,7 @@ export async function wrapEthAsync() {
     await updateTokensAndTableAsync();
     $(wrapModalSelector).modal('hide');
     $(spinnerSelector).hide();
-    location.reload(); //とりあえずリロードする
+    // location.reload(); //とりあえずリロードする
   } catch (err) {
     alert(err.message);
     $(spinnerSelector).hide();
@@ -61,7 +61,7 @@ export async function unwrapEthAsync() {
     await updateTokensAndTableAsync();
     $(unwrapModalSelector).modal('hide');
     $(spinnerSelector).hide();
-    location.reload(); //とりあえずリロードする
+    // location.reload(); //とりあえずリロードする
   } catch (err) {
     alert(err.message);
     $(spinnerSelector).hide();
@@ -137,6 +137,7 @@ export async function getAllTokenBalancesAndAllowancesAsync() {
  */
 export async function updateTokensAndTableAsync() {
   const tokenData = await getAllTokenBalancesAndAllowancesAsync();
+  console.log(tokenData);
   createTokensTable(tokenData);
 }
 

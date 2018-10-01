@@ -105,8 +105,10 @@
             <tbody>
               <tr>
                 <td id="title1">BUY</td>
-                <td><input type="text"  placeholder="Amount" id="quote-token-amount" class="u-input" readonly></td>
-                <!-- <td><input type="text" placeholder="Amount" id="base-token-amount" class="u-input"></td> -->
+                <!-- <td><input type="text"  placeholder="Amount" id="quote-token-amount" class="u-input u-input-top" readonly></td>
+                <td><input type="text" placeholder="Amount" id="base-token-amount" class="u-input"></td> -->
+                <td class="type-buy"><input type="text"  placeholder="Amount" class="u-input u-input-top quote-token-amount" readonly></td>
+                <td class="type-sell d-none"><input type="text" placeholder="Amount" class="u-input base-token-amount"></td>
                 <td>
                   <select class="custom-select u-select" id="base-token-select">
                     <option value="ZRX">ZRX - 0x Protocol Token</option>
@@ -118,8 +120,10 @@
               </tr>
               <tr>
                 <td id="title2">SELL</td>
-                <td><input type="text" placeholder="Amount" id="base-token-amount" class="u-input"></td>
-                <!-- <td><input type="text"  placeholder="Amount" id="quote-token-amount" class="u-input" readonly></td> -->
+                <!-- <td><input type="text" placeholder="Amount" id="base-token-amount" class="u-input u-input-bottom"></td>
+                <td><input type="text"  placeholder="Amount" id="quote-token-amount" class="u-input" readonly></td> -->
+                <td class="type-buy"><input type="text" placeholder="Amount" class="u-input u-input-bottom base-token-amount"></td>
+                <td class="type-sell d-none"><input type="text"  placeholder="Amount" class="u-input quote-token-amount" readonly></td>
                 <td>
                   <select class="custom-select u-select" id="quote-token-select">
                     <option value="WETH">WETH - Wrapped ETH</option>
