@@ -13,6 +13,7 @@ const quoteTokenAmountSelector = '.quote-token-amount';
 const orderTypeSelector = '#order-type';
 const exchangeButtonSelector = '#exchange-button';
 const spinnerSelector = '.spinner';
+const loaderSelector = '.loader';
 
 const buy = '#BUY';
 const sell = '#SELL';
@@ -150,17 +151,20 @@ export async function exchangeAsync() {
         return;
       }
 
+      $(loaderSelector).css('opacity', '0.6').show();
       $(spinnerSelector).show();
 
       const market = await Sdk.Instance.markets.getAsync(`${$(baseTokenSelectSelector).val()}-${$(quoteTokenSelectSelector).val()}`);
       const txReceipt = await market.marketOrderAsync(orderType, new BigNumber(baseTokenAmount), { awaitTransactionMined: true });
 
       $(spinnerSelector).hide();
+      $(loaderSelector).hide();
 
       alert(`Transaction Sucessful: ${(txReceipt as any).transactionHash}`);
     }
   } catch (err) {
     alert(err.message);
     $(spinnerSelector).hide();
+    $(loaderSelector).hide();
   }
 }

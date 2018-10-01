@@ -20,7 +20,7 @@ export function watchActiveAddress() {
     $(activeAddressSelector).text(address || 'None');
 
     // Show Loader
-    $(loaderSelector).show();
+    $(loaderSelector).css('opacity', '1.0').show();
 
     $(baseTokenAmountSelector).val('');
     $(quoteTokenAmountSelector).val('');

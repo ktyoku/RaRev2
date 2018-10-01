@@ -74,7 +74,7 @@ export default class Main {
       if (networkId !== previousNetworkId) {
         previousNetworkId = networkId;
 
-        if (networkId === 1) {
+        if (networkId === 42) {
           $(this.networkWarningSelector).addClass('d-none');
         } else {
           $(this.networkWarningSelector).removeClass('d-none');

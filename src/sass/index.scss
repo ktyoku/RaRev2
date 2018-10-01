@@ -162,6 +162,7 @@ input:read-only {
   background: $white;
   z-index: 1500;
   transition: opacity 500ms ease-in-out;
+  opacity: 1.0;
 }
 
 .page-loader {

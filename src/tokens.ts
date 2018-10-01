@@ -13,6 +13,7 @@ const unwrapEthAmountSelector = '#unwrap-amount';
 const unwrapEthButtonSelector = '#unwrap-eth-button';
 const spinnerSelector = '.spinner';
 const baseTokenAmountSelector = '.base-token-amount';
+const loaderSelector = '.loader';
 
 const ETHBalance = '.ETH-Balance';
 const WETHBalance = '.WETH-Balance';
@@ -34,16 +35,19 @@ export async function wrapEthAsync() {
       return;
     }
 
+    $(loaderSelector).css('opacity', '0.6').show();
     $(spinnerSelector).show();
 
     await Sdk.Instance.account.wrapEthAsync(new BigNumber(wrapAmount), { awaitTransactionMined: true });
     await updateTokensAndTableAsync();
     $(wrapModalSelector).modal('hide');
     $(spinnerSelector).hide();
+    $(loaderSelector).hide();
     // location.reload(); //とりあえずリロードする
   } catch (err) {
     alert(err.message);
     $(spinnerSelector).hide();
+    $(loaderSelector).hide();
   }
 }
 
@@ -55,16 +59,19 @@ export async function unwrapEthAsync() {
       return;
     }
 
+    $(loaderSelector).css('opacity', '0.6').show();
     $(spinnerSelector).show();
 
     await Sdk.Instance.account.unwrapEthAsync(new BigNumber(unwrapAmount), { awaitTransactionMined: true });
     await updateTokensAndTableAsync();
     $(unwrapModalSelector).modal('hide');
     $(spinnerSelector).hide();
+    $(loaderSelector).hide();
     // location.reload(); //とりあえずリロードする
   } catch (err) {
     alert(err.message);
     $(spinnerSelector).hide();
+    $(loaderSelector).hide();
   }
 }
 
@@ -79,6 +86,7 @@ export async function toggleAllowanceAsync(e: JQuery.Event<HTMLInputElement>) {
   try {
     const { name, id, checked } = e.currentTarget;
 
+    $(loaderSelector).css('opacity', '0.6').show();
     $(spinnerSelector).show();
 
     if (checked) {
@@ -88,9 +96,11 @@ export async function toggleAllowanceAsync(e: JQuery.Event<HTMLInputElement>) {
     }
     $(`#${id}`).prop('checked', checked).closest('div').attr('data-original-title', checked ? 'Disable Token' : 'Enable Token');
     $(spinnerSelector).hide();
+    $(loaderSelector).hide();
   } catch (err) {
     console.log(err);
     $(spinnerSelector).hide();
+    $(loaderSelector).hide();
   }
 }
 
