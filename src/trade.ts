@@ -80,11 +80,7 @@ export function populateTokenDropdowns() {
  */
 export async function updateBookAsync() {
   const market = await Sdk.Instance.markets.getAsync(`${$(baseTokenSelectSelector).val()}-${$(quoteTokenSelectSelector).val()}`);
-  console.log('マーケット');
-  console.log(market);
   currentOrderBook = await market.getBookAsync();
-  console.log('オーダーブック');
-  console.log(currentOrderBook);
 }
 
 /**

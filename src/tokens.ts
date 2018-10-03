@@ -145,7 +145,6 @@ export async function getAllTokenBalancesAndAllowancesAsync() {
  */
 export async function updateTokensAndTableAsync() {
   const tokenData = await getAllTokenBalancesAndAllowancesAsync();
-  console.log(tokenData);
   createTokensTable(tokenData);
 }
 
