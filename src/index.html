@@ -6,9 +6,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>HubEconomies</title>
   <meta name="description" content="HubEconomies">
+  <script src="https://use.typekit.net/dem1oqp.js"></script>
+  <script>try{Typekit.load({ async: true });}catch(e){}</script>
 </head>
 <body>
-  <header>
+  <!-- <header>
     <div class="container">
       <div class="l-header text-center">
         <div class="l-top d-inline">
@@ -19,119 +21,132 @@
         </div>
       </div>
     </div>
-  </header>
+  </header> -->
+
+  <header class="l-header">
+  <div class="l-header__inner container">
+    <a class="l-header__logo c-link" href="/">
+      hubEconomies
+    </a>
+    <a href="https://t.me/joinchat/IKYgSw7A7rAS-dyoEWt3Ng" class="l-header__telegram c-link" target="_blank">
+      Telegram
+    </a>
+  </div>
+</header>
 
   <div class="alert alert-danger position-absolute w-100 text-center d-none" id="network-warning" role="alert">
     Please switch to the main network.
   </div>
-  
+
   <div class="loader">
     <div class="page-loader"></div>
   </div>
 
   <div class="p-exchange">
     <div class="container">
-      <div class="p-ex-title">
-        EXCHANGE
-        <div class="spinner"></div>
-        <div class="position-absolute d-none d-md-block account">
-          <span>Account:</sapn>
-          <span id="active-address">None</span>
-        </div>
-      </div>
-      <div class="u-bg text-center contents">
-        <div class="content">
-          <div class="content-title">
-            ETH<=>WETH
+      <div class="p-detail">
+        <div class="p-ex-title">
+          EXCHANGE
+          <div class="spinner"></div>
+          <div class="position-absolute d-none d-md-block account">
+            <span>Account:</sapn>
+            <span id="active-address">None</span>
           </div>
-          <table class="table">
-            <thead>
-              <tr>
-                <th>Token</th>
-                <th class="col">Amount</th>
-                <th class="col">Action</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>ETH</td>
-                <td class="ETH-Balance">0.0000000</td>
-                <td><span data-toggle="modal" data-target="#wrapModal"><button type="button" class="u-btn" data-toggle="tooltip" data-placement="right" title="from ETH to WETH">ETH→WETH</button></span></td>
-              </tr>
-              <tr>
-                <td>WETH</td>
-                <td class="WETH-Balance">0.0000000</td>
-                <td><span data-toggle="modal" data-target="#unwrapModal"><button type="button" class="u-btn" id="WETH" data-toggle="tooltip" data-placement="right" title="from WETH to ETH" >WETH→ETH</button></span></td>
-              </tr>
-            </tbody>
-          </table>
         </div>
-      </div>
+        <div class="u-bg text-center contents">
+          <div class="content">
+            <div class="content-title">
+              ETH<=>WETH
+            </div>
+            <table class="table">
+              <thead>
+                <tr>
+                  <th>Token</th>
+                  <th class="col">Amount</th>
+                  <th class="col">Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>ETH</td>
+                  <td class="ETH-Balance">0.0000000</td>
+                  <td><span data-toggle="modal" data-target="#wrapModal"><button type="button" class="u-btn" data-toggle="tooltip" data-placement="right" title="from ETH to WETH">ETH→WETH</button></span></td>
+                </tr>
+                <tr>
+                  <td>WETH</td>
+                  <td class="WETH-Balance">0.0000000</td>
+                  <td><span data-toggle="modal" data-target="#unwrapModal"><button type="button" class="u-btn" id="WETH" data-toggle="tooltip" data-placement="right" title="from WETH to ETH" >WETH→ETH</button></span></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
 
-      <div class="u-bg text-center contents">
-        <div class="content">
-          <div class="content-title">
-            Balances
+        <div class="u-bg text-center contents">
+          <div class="content">
+            <div class="content-title">
+              Balances
+            </div>
+            <div id="token-balances"></div>
           </div>
-          <div id="token-balances"></div>
         </div>
-      </div>
 
-      <div class="u-bg text-center contents">
-        <div class="content">
-          <div class="content-title">
-            Trade
+        <div class="u-bg text-center contents">
+          <div class="content">
+            <div class="content-title">
+              Trade
+            </div>
+            <ul class="nav nav-tabs u-nav-tabs">
+              <li class="nav-item u-nav-item" >
+                <a class="nav-link active" id="BUY" data-toggle="tab">BUY</a>
+              </li>
+              <li class="nav-item u-nav-item">
+                <a class="nav-link" id="SELL" data-toggle="tab">SELL</a>
+              </li>
+            </ul>
+            <!-- <select class="custom-select w-100" id="order-type">
+                      <option value="BUY" selected="selected">BUY</option>
+                      <option value="SELL">SELL</option>
+                    </select> -->
+            <table class="table">
+              <thead>
+                <tr>
+                  <th>Action</th>
+                  <th class="col">Amount</th>
+                  <th class="col">Token</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td id="title1">BUY</td>
+                  <!-- <td><input type="text"  placeholder="Amount" id="quote-token-amount" class="u-input u-input-top" readonly></td>
+                  <td><input type="text" placeholder="Amount" id="base-token-amount" class="u-input"></td> -->
+                  <td class="type-buy"><input type="text"  placeholder="Amount" class="u-input u-input-top quote-token-amount" readonly></td>
+                  <td class="type-sell d-none"><input type="text" placeholder="Amount" class="u-input base-token-amount"></td>
+                  <td>
+                    <select class="custom-select u-select" id="base-token-select">
+                      <option value="ZRX">ZRX - 0x Protocol Token</option>
+                      <option value="KNC">KNC - Kyber Network Crystal</option>
+                      <option value="MANA">MANA - Decentraland MANA</option>
+                    </select>
+                  </td>
+                </tr>
+                <tr>
+                  <td id="title2">SELL</td>
+                  <!-- <td><input type="text" placeholder="Amount" id="base-token-amount" class="u-input u-input-bottom"></td>
+                  <td><input type="text"  placeholder="Amount" id="quote-token-amount" class="u-input" readonly></td> -->
+                  <td class="type-buy"><input type="text" placeholder="Amount" class="u-input u-input-bottom base-token-amount"></td>
+                  <td class="type-sell d-none"><input type="text"  placeholder="Amount" class="u-input quote-token-amount" readonly></td>
+                  <td>
+                    <select class="custom-select u-select" id="quote-token-select">
+                      <option value="WETH">WETH - Wrapped ETH</option>
+                    </select>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+            <button type="button" class="p-trade" id="exchange-button">Trade</button>
           </div>
-          <ul class="nav nav-tabs u-nav-tabs">
-            <li class="nav-item u-nav-item" >
-              <a class="nav-link active" id="BUY" data-toggle="tab">BUY</a>
-            </li>
-            <li class="nav-item u-nav-item">
-              <a class="nav-link" id="SELL" data-toggle="tab">SELL</a>
-            </li>
-          </ul>
-          <!-- <select class="custom-select w-100" id="order-type">
-                    <option value="BUY" selected="selected">BUY</option>
-                    <option value="SELL">SELL</option>
-                  </select> -->
-          <table class="table">
-            <thead>
-              <tr>
-                <th>Action</th>
-                <th class="col">Amount</th>
-                <th class="col">Token</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td id="title1">BUY</td>
-                <!-- <td><input type="text"  placeholder="Amount" id="quote-token-amount" class="u-input u-input-top" readonly></td>
-                <td><input type="text" placeholder="Amount" id="base-token-amount" class="u-input"></td> -->
-                <td class="type-buy"><input type="text"  placeholder="Amount" class="u-input u-input-top quote-token-amount" readonly></td>
-                <td class="type-sell d-none"><input type="text" placeholder="Amount" class="u-input base-token-amount"></td>
-                <td>
-                  <select class="custom-select u-select" id="base-token-select">
-                    <option value="ZRX">ZRX - 0x Protocol Token</option>
-                    <option value="KNC">KNC - Kyber Network Crystal</option>
-                    <option value="MANA">MANA - Decentraland MANA</option>
-                  </select>
-                </td>
-              </tr>
-              <tr>
-                <td id="title2">SELL</td>
-                <!-- <td><input type="text" placeholder="Amount" id="base-token-amount" class="u-input u-input-bottom"></td>
-                <td><input type="text"  placeholder="Amount" id="quote-token-amount" class="u-input" readonly></td> -->
-                <td class="type-buy"><input type="text" placeholder="Amount" class="u-input u-input-bottom base-token-amount"></td>
-                <td class="type-sell d-none"><input type="text"  placeholder="Amount" class="u-input quote-token-amount" readonly></td>
-                <td>
-                  <select class="custom-select u-select" id="quote-token-select">
-                    <option value="WETH">WETH - Wrapped ETH</option>
-                  </select>
-                </td>
-              </tr>
-            </tbody>
-          </table>
-          <button type="button" class="p-trade" id="exchange-button">Trade</button>
         </div>
       </div>
     </div>

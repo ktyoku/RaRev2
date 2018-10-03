@@ -43,7 +43,6 @@ export async function wrapEthAsync() {
     $(wrapModalSelector).modal('hide');
     $(spinnerSelector).hide();
     $(loaderSelector).hide();
-    // location.reload(); //とりあえずリロードする
   } catch (err) {
     alert(err.message);
     $(spinnerSelector).hide();
@@ -67,7 +66,6 @@ export async function unwrapEthAsync() {
     $(unwrapModalSelector).modal('hide');
     $(spinnerSelector).hide();
     $(loaderSelector).hide();
-    // location.reload(); //とりあえずリロードする
   } catch (err) {
     alert(err.message);
     $(spinnerSelector).hide();
