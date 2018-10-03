@@ -95,15 +95,20 @@ export function baseAmountChanged() {
     baseTokenAmount = new BigNumber($(typeSell).find(baseTokenAmountSelector).val() as string);
   }
 
+  console.log(baseTokenAmount);
+  console.log(currentOrderBook.asks);
+
   let quoteTokenAmount = new BigNumber(0);
   if (orderType === UserOrderType.BUY && currentOrderBook.asks.length) {
-    quoteTokenAmount = calculateQuoteTokenAmount(baseTokenAmount, quoteTokenAmount, currentOrderBook.asks);
+    quoteTokenAmount = calculateBaseTokenAmount(baseTokenAmount, quoteTokenAmount, currentOrderBook.asks);
   }
 
   if (orderType === UserOrderType.SELL && currentOrderBook.bids.length) {
     quoteTokenAmount = calculateQuoteTokenAmount(baseTokenAmount, quoteTokenAmount, currentOrderBook.bids);
   }
 
+  console.log(quoteTokenAmount);
+  // quoteTokenAmount = quoteTokenAmount.times(10).times(10).times(10).times(10).times(10);
   // Set quote token amount
   $(quoteTokenAmountSelector).val(quoteTokenAmount.toString());
 }
@@ -114,6 +119,19 @@ export function baseAmountChanged() {
  * @param quoteTokenAmount The quote token amount
  * @param orders The orders to iterate
  */
+function calculateBaseTokenAmount(baseTokenAmount: BigNumber, quoteTokenAmount: BigNumber, orders: RadarSignedOrder[]) {
+  for (const order of orders) {
+    if (baseTokenAmount.lessThanOrEqualTo(order.remainingQuoteTokenAmount)) {
+      quoteTokenAmount = quoteTokenAmount.plus(baseTokenAmount.div(order.price));
+      break;
+    } else {
+      quoteTokenAmount = quoteTokenAmount.plus(new BigNumber(order.remainingQuoteTokenAmount).div(order.price));
+      baseTokenAmount = baseTokenAmount.minus(order.remainingQuoteTokenAmount);
+    }
+  }
+  return quoteTokenAmount;
+}
+
 function calculateQuoteTokenAmount(baseTokenAmount: BigNumber, quoteTokenAmount: BigNumber, orders: RadarSignedOrder[]) {
   for (const order of orders) {
     if (baseTokenAmount.lessThanOrEqualTo(order.remainingBaseTokenAmount)) {
@@ -126,7 +144,6 @@ function calculateQuoteTokenAmount(baseTokenAmount: BigNumber, quoteTokenAmount:
   }
   return quoteTokenAmount;
 }
-
 /**
  * Execute the market order
  */
