@@ -94,6 +94,15 @@ footer {
   }
 }
 
+
+.l-footer {
+  padding-bottom: 50px;
+
+  @include media-breakpoint-up(lg) {
+    padding-bottom: 100px;
+  }
+}
+
 .c-link {
   @include no-text-decoration;
   @include absolute-color($white);
