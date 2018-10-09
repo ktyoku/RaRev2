@@ -301,6 +301,18 @@ input:read-only {
   opacity: 1.0;
 }
 
+.loader-init {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: $white;
+  z-index: 1500;
+  transition: opacity 500ms ease-in-out;
+  opacity: 1.0;
+}
+
 .page-loader {
   width: 40px;
   height: 40px;
@@ -338,6 +350,14 @@ input:read-only {
     transform: scale(1.0);
     opacity: 0;
   }
+}
+
+.page-loader-message {
+  text-align: center;
+  color: #000;
+  top: 60%;
+  left: 35%;
+  position: absolute;
 }
 
 // Non-blocking spinner

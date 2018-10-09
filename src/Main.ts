@@ -9,6 +9,7 @@ export default class Main {
 
   // Selectors
   private readonly loaderSelector = '.loader';
+  private readonly loaderInitSelector = '.loader-init';
   private readonly networkWarningSelector = '#network-warning';
 
   /**
@@ -45,7 +46,7 @@ export default class Main {
         previousNetworkId = await this.updateNetworkIdBannerAsync(previousNetworkId);
       }, 5000);
     });
-
+    console.log("hogehoge");
     // Update tokens and table on account initialized
     Sdk.Instance.events.on(EventName.AccountInitialized, async () => {
       // Update balances
@@ -60,7 +61,7 @@ export default class Main {
       populateTokenDropdowns();
 
       // Hide Loader
-      $(this.loaderSelector).hide();
+      $(this.loaderInitSelector).hide();
     });
   }
 
