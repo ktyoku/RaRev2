@@ -212,7 +212,16 @@ input:read-only {
 .contents {
   // text-align: center;
   margin-top: 24px;
-  padding: 12px 230px;
+  padding: 12px;
+}
+
+.content {
+  display: inline-block;
+  width: 100%;
+
+  @include media-breakpoint-up(md) {
+    width: 80%;
+  }
 }
 
 .content-title {
@@ -249,7 +258,7 @@ input:read-only {
   -moz-appearance: none;
   appearance: none;
   height: auto;
-  width: auto;
+  width: 228px;
   font-weight: normal;
   font-size: inherit;
 }
